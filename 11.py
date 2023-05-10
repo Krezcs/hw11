@@ -30,17 +30,11 @@ class Phone(Field):
         if self.value and not isinstance(self.value, str):
             raise ValueError("Phone field must be a string.")
 
-        # Additional validation for phone number format
-        # Here, you can implement your specific validation logic
-
 
 class Birthday(Field):
     def validate(self):
         if self.value and not isinstance(self.value, date):
             raise ValueError("Birthday field must be a date.")
-
-        # Additional validation for birthday format
-        # Here, you can implement your specific validation logic
 
 
 class Record:
