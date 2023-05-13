@@ -5,6 +5,7 @@ from collections import UserDict
 class Field:
     def __init__(self, value=None):
         self._value = value
+        self.validate()
 
     def validate(self):
         raise NotImplementedError("Validation logic must be implemented in the subclass.")
@@ -15,8 +16,8 @@ class Field:
 
     @value.setter
     def value(self, new_value):
-        self.validate()
         self._value = new_value
+        self.validate()
 
 
 class Name(Field):
@@ -45,7 +46,6 @@ class Record:
 
     def add_phone(self, phone):
         phone_obj = Phone(phone)
-        phone_obj.validate()
         self.phones.append(phone_obj)
 
     def remove_phone(self, phone):
@@ -58,7 +58,6 @@ class Record:
         for phone_obj in self.phones:
             if phone_obj.value == old_phone:
                 phone_obj.value = new_phone
-                phone_obj.validate()
                 break
 
     def days_to_birthday(self):
@@ -90,7 +89,7 @@ class AddressBook(UserDict):
             raise StopIteration
 
         items = list(self.data.items())
-        page_items = items[self._index : self._index + self._page_size]
+        page_items = items[self._index: self._index + self._page_size]
         self._index += self._page_size
         return dict(page_items)
 
